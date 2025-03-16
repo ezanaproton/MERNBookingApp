@@ -6,6 +6,7 @@ import { BrowserRouter as Router,
   Routes,
   // Navigate,
  } from 'react-router-dom'
+import SignIn from './pages/SignIn.tsx'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/search" element={<Layout><p>Search Page</p></Layout>}/>
         <Route path="*" element={<div>asdfff</div>}/>
         <Route path="/register" element={<Layout><Register></Register></Layout>}/>
+        <Route path="/sign-in" element={<Layout><SignIn></SignIn></Layout>}></Route>
       </Routes>
     </Router>
   )

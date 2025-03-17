@@ -1,4 +1,4 @@
-import { HotelType } from "./components/HotelCard";
+// import { HotelType } from "./components/HotelCard";
 import {RegisterFormData} from "./pages/Register"
 import { SignInFormData } from "./pages/SignIn";
 

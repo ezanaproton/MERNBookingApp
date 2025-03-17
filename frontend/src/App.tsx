@@ -7,8 +7,12 @@ import { BrowserRouter as Router,
   // Navigate,
  } from 'react-router-dom'
 import SignIn from './pages/SignIn.tsx'
+import AddHotel from './pages/AddHotel.tsx'
+import { useAppContext } from './contexts/AppContext.tsx'
+import MyHotels from './pages/MyHotels.tsx'
 
 function App() {
+  const { isLoggedIn } = useAppContext();
 
   return (
     <Router>
@@ -18,6 +22,11 @@ function App() {
         <Route path="*" element={<div>asdfff</div>}/>
         <Route path="/register" element={<Layout><Register></Register></Layout>}/>
         <Route path="/sign-in" element={<Layout><SignIn></SignIn></Layout>}></Route>
+        {isLoggedIn && 
+        (<>
+          <Route path="/my-hotels" element={<Layout><MyHotels></MyHotels></Layout>}></Route>
+          <Route path="/add-hotel" element={<Layout><AddHotel></AddHotel></Layout>}></Route>
+        </>)}
       </Routes>
     </Router>
   )

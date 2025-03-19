@@ -27,7 +27,7 @@ const Footer = () =>{
                     :
                     (<Link
                         to="/sign-in"
-                        className="flex bg-white items-center text-blue-600 px-3 font-bold"
+                        className="flex bg-white items-center text-blue-600 px-3 font-bold rounded-xl"
                     >
                         Sign In
                     </Link>)

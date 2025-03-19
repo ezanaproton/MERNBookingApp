@@ -10,6 +10,7 @@ import SignIn from './pages/SignIn.tsx'
 import AddHotel from './pages/AddHotel.tsx'
 import { useAppContext } from './contexts/AppContext.tsx'
 import MyHotels from './pages/MyHotels.tsx'
+import EditHotel from './pages/EditHotel.tsx'
 
 function App() {
   const { isLoggedIn } = useAppContext();
@@ -26,6 +27,7 @@ function App() {
         (<>
           <Route path="/my-hotels" element={<Layout><MyHotels></MyHotels></Layout>}></Route>
           <Route path="/add-hotel" element={<Layout><AddHotel></AddHotel></Layout>}></Route>
+          <Route path="/edit-hotel/:hotelId" element={<Layout><EditHotel></EditHotel></Layout>}></Route>
         </>)}
       </Routes>
     </Router>

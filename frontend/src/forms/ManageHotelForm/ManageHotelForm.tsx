@@ -4,6 +4,8 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
+import { HotelType } from "../../../../backend/src/shared/types";
+import { useEffect } from "react";
 
 export type HotelFormData = {
     name: string;
@@ -15,6 +17,7 @@ export type HotelFormData = {
     starRating: number;
     facilities: string[];
     imageFiles: FileList;
+    imageUrls: string[];
     adultCount: number;
     childCount: number;
 }
@@ -22,14 +25,22 @@ export type HotelFormData = {
 type Props = {
     onSave: (hotelFormData: FormData)=>void;
     isLoading: boolean;
+    hotel?: HotelType
 }
 
-const ManageHotelForm = ({onSave, isLoading}: Props) => {
+const ManageHotelForm = ({onSave, isLoading, hotel}: Props) => {
     const formMethods = useForm<HotelFormData>();
-    const {handleSubmit} = formMethods;
+    const {handleSubmit, reset} = formMethods;
+
+    useEffect(()=>{
+        reset(hotel);
+    }, [hotel, reset])
 
     const onSubmit = handleSubmit((formDataJson: HotelFormData)=>{
         const formData = new FormData();
+        if(hotel){
+            formData.append("hotelId", hotel._id);
+        }
         formData.append("name", formDataJson.name);
         formData.append("city", formDataJson.city);
         formData.append("country", formDataJson.country);
@@ -42,6 +53,13 @@ const ManageHotelForm = ({onSave, isLoading}: Props) => {
 
         formDataJson.facilities.forEach((facility, index)=>{
             formData.append(`facilities[${index}]`, facility)
+        })
+
+
+        formDataJson.imageUrls.forEach((imageUrl, index)=>{
+            if(imageUrl.includes("res.cloudinary.com")){
+                formData.append(`imageUrls[${index}]`, imageUrl);
+            }
         })
 
         Array.from(formDataJson.imageFiles).forEach((imageFile)=>{
@@ -58,12 +76,12 @@ const ManageHotelForm = ({onSave, isLoading}: Props) => {
             <TypeSection/>
             <FacilitiesSection/>
             <GuestsSection/>
-            <ImagesSection/>
+            <ImagesSection />
             <span className="flex justify-end">
                 <button 
                 disabled={isLoading}
                 type="submit"
-                className="bg-blue-600 text-white p-2 font-bold  hover:bg-blue-500 text-xl disabled:bg-gray-500">
+                className="bg-blue-600 text-white p-2 font-bold rounded-xl hover:bg-blue-500 text-xl disabled:bg-gray-500">
                     {isLoading ? "Saving..." : "Save"}
                 </button>
             </span>

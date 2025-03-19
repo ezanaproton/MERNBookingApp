@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout><p>Home Page</p></Layout>}/> 
         <Route path="/search" element={<Layout><p>Search Page</p></Layout>}/>
-        <Route path="*" element={<div>asdfff</div>}/>
+        <Route path="*" element={<div className='text-center h-screen text-3xl align-items justify-center'>Coming Soon</div>}/>
         <Route path="/register" element={<Layout><Register></Register></Layout>}/>
         <Route path="/sign-in" element={<Layout><SignIn></SignIn></Layout>}></Route>
         {isLoggedIn && 

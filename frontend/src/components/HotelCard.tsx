@@ -10,8 +10,13 @@ const HotelCard = (hotel: HotelType)=>{
         className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
     >
         <h2 className="text-2xl font-bold">{hotel.name}</h2>
+        <div className="grid gap-3 grid-cols-3" >
+            {hotel.imageUrls?.map((url)=>(
+                <img src={url} className="min-w-28"/>
+            ))}
+        </div>
         <div className="whitespace-pre-line">{hotel.description}</div>
-        <div className="grid grid-cols-5 gap-2">
+        <div className="flex flex-wrap gap-2">
         <div className="border border-slate-300 rounded-4xl p-3 flex items-center">
             <BsMap className="mr-1" />
             {hotel.city}, {hotel.country}
@@ -25,7 +30,7 @@ const HotelCard = (hotel: HotelType)=>{
         </div>
         <div className="border border-slate-300 rounded-4xl p-3 flex items-center">
             <BiHotel className="mr-1" />
-            {hotel.adultCount} adults, {hotel.childCount} children
+            {hotel.adultCount} {hotel.adultCount === 1 ? "adult" : "adults"}, {hotel.childCount} {hotel.childCount === 1 ? "child" : "children"}
         </div>
         <div className="border border-slate-300 rounded-4xl p-3 flex items-center">
             <BiStar className="mr-1" />

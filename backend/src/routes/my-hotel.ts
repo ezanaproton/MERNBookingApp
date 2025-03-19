@@ -92,19 +92,19 @@ router.put('/:id',
             if(req.files){
                 const imageFiles = req.files as Express.Multer.File[];
                 const imageUrls = await uploadImages(imageFiles);                   
-                updatedHotel.imageUrls = updatedHotel.imageUrls.concat(imageUrls);
-                console.log(updatedHotel.imageUrls);    
+                updatedHotel.imageUrls = updatedHotel.imageUrls ? updatedHotel.imageUrls.concat(imageUrls) : imageUrls;
+                // console.log(updatedHotel.imageUrls);    
             }
             updatedHotel.lastUpdated = new Date();
-            console.log(updatedHotel);
+            // console.log(updatedHotel);
 
             const hotel = await Hotel.findOneAndUpdate({_id: id, userId: req.userId}, updatedHotel, { new: true });
-            console.log(hotel);
+            // console.log(hotel);
             if(!hotel){
                 return res.status(404).json({message:"Hotel not found"});
             }
 
-            res.sendStatus(201).json(hotel);
+            res.status(201).json(hotel);
 
         } catch (error) {
             console.log("Error updating hotel: ", error);

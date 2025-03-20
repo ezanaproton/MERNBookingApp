@@ -19,22 +19,23 @@ const ImagesSection = () => {
         if(event.target.files!==null && event.target.files.length > 0){
             const imageURLS = Array.from(event.target.files).map((file)=>(URL.createObjectURL(file)));
             const updatedUrls = existingImageUrls ? imageURLS.concat(existingImageUrls): imageURLS;
-            setValue("imageUrls", updatedUrls);
+            setValue("imageUrls", updatedUrls, {shouldDirty: false});
             setFilesSelected(true);
             // console.log(updatedUrls);
         }
         else{
             setFilesSelected(false);
             const updatedImageUrls = existingImageUrls.filter((url)=>url.includes("res.cloudinary.com"));
-            setValue("imageUrls",  updatedImageUrls);
+            setValue("imageUrls",  updatedImageUrls, {shouldDirty: false});
         }
         console.log(event.target.files);
     }
 
-    const handleDelete = (index: number) => {
-        const updatedImageUrls = existingImageUrls.toSpliced(index, 1);
-        setValue("imageUrls",  updatedImageUrls);
-        if(!updatedImageUrls.some((url)=>url.includes("blob"))){
+    const handleDelete = (imageUrl: string) => {
+        const updatedImageUrls = existingImageUrls.filter((url)=>url!=imageUrl);
+        setValue('imageUrls', updatedImageUrls, { shouldDirty: false });
+
+        if (!updatedImageUrls.some((url) => url.includes('blob'))) {
             setFilesSelected(false);
         }
     };
@@ -49,8 +50,8 @@ const ImagesSection = () => {
                     accept="image/*"
                     className="w-full text-gray-700 font-normal cursor-pointer"
                     {...register("imageFiles", {
-                        validate: (imageFiles)=>{
-                            const totalLength = imageFiles.length + (existingImageUrls?.length || 0);
+                        validate: ()=>{
+                            const totalLength = existingImageUrls?.length || 0;
 
                             if(totalLength===0){
                                 return "At least one image should be added";
@@ -67,13 +68,13 @@ const ImagesSection = () => {
                     <>
                     <h3>Current Images</h3>
                     <div className="grid grid-cols-3 gap-1">
-                    {existingImageUrls.map((url, index)=> url?.includes("res.cloudinary.com") && (
-                        <div className="group relative">
+                    {existingImageUrls.map((url)=> url?.includes("res.cloudinary.com") && (
+                        <div className="group relative" key={url}>
                             
-                            <img src={`${url}`} className="object-cover min-w-full align-middle"/>
+                            <img src={`${url}`} className="object-cover min-h-full align-middle"/>
                             <button 
                               className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 text-white"
-                              onClick={() => handleDelete(index)}
+                              onClick={() => handleDelete(url)}
                             >
                                 Delete
                             </button>
@@ -85,12 +86,12 @@ const ImagesSection = () => {
                     <>
                     <h3>New Images</h3> 
                     <div className="grid grid-cols-3 gap-1">
-                     {existingImageUrls.map((url, index)=> !url?.includes("res.cloudinary.com") && (
-                        <div className="group relative">
-                            <img src={`${url}`} className="object-cover min-w-full align-middle"/>
+                     {existingImageUrls.map((url)=> !url?.includes("res.cloudinary.com") && (
+                        <div className="group relative" key={url}>
+                            <img src={`${url}`} className="object-cover min-h-full align-middle"/>
                             <button 
                               className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 text-white"
-                              onClick={() => handleDelete(index)}
+                              onClick={() => handleDelete(url)}
                             >
                                 Delete
                             </button>

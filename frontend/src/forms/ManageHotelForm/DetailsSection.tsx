@@ -50,7 +50,8 @@ const DetailsSection = () => {
                 Description
                 <textarea 
                 rows={5}
-                className="border rounded w-full py-1 px-2 font-normal" 
+                className="border rounded w-full py-1 px-2 font-normal"
+                maxLength={2000}
                 {...register("description", {required: "This field is required"})}>
                 </textarea>
                 {errors.description && (

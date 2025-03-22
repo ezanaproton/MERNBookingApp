@@ -56,7 +56,7 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: Props) => {
         })
 
 
-        var i = 0
+        let i = 0;
         formDataJson.imageUrls.forEach((imageUrl)=>{
             if(imageUrl.includes("res.cloudinary.com")){
                 formData.append(`imageUrls[${i}]`, imageUrl);

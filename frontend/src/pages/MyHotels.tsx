@@ -22,7 +22,8 @@ const MyHotels = () =>{
                 ? <span> No Hotels found</span>
                 : (<div className="grid grid-cols-1 gap-8">
                     {hotelData.map((hotel) => (
-                        <HotelCard {...hotel}/>
+                        <HotelCard {...hotel}
+                            key={crypto.randomUUID()}/>
                     ))}
                 </div>)
             }

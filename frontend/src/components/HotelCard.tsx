@@ -12,7 +12,7 @@ const HotelCard = (hotel: HotelType)=>{
         <h2 className="text-2xl font-bold">{hotel.name}</h2>
         <div className="grid gap-3 grid-cols-3" >
             {hotel.imageUrls?.map((url)=>(
-                <img src={url} className="min-w-28 min-h-full"/>
+                <img src={url} key={url} className="min-w-28 min-h-full"/>
             ))}
         </div>
         <div className="whitespace-pre-line">{hotel.description}</div>

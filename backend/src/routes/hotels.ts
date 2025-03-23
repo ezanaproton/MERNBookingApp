@@ -77,13 +77,13 @@ const constructSearchQuery = (queryParams: any) => {
         }
     }
 
-    if(queryParams.type){
+    if (queryParams.types) {
         constructedQuery.type = {
-            $in: Array.isArray(queryParams.types)
+          $in: Array.isArray(queryParams.types)
             ? queryParams.types
-            : [queryParams.types]
-        }
-    }
+            : [queryParams.types],
+        };
+      }
 
     
     if(queryParams.stars){
@@ -91,7 +91,12 @@ const constructSearchQuery = (queryParams: any) => {
             ? queryParams.stars.map((star:string)=> parseInt(star))
             : parseInt(queryParams.stars)
 
-        constructedQuery.starRating={$eq:starRating};
+        // constructedQuery.starRating = Array.isArray(starRating)? {$in: starRating}:{$eq:starRating};
+        constructedQuery.starRating = {
+            $in: Array.isArray(starRating)
+            ? starRating
+            : [starRating]
+        }
     }
 
     if (queryParams.maxPrice){

@@ -1,6 +1,7 @@
 import { AiFillStar } from "react-icons/ai"
 import { HotelType } from "../../../backend/src/shared/types"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 type Props = {
     hotel: HotelType
@@ -21,7 +22,9 @@ const SearchResultsCard = ({hotel}:Props) =>{
             </div>
             <div className="grid grid-rows-[2fr_4fr_3fr]">
                 <div>
-                    <h2 className="text-bold text-2xl">{hotel.name}</h2>
+                    <Link to={`/detail/${hotel._id}`}>
+                        <h2 className="text-bold text-2xl">{hotel.name}</h2>
+                    </Link>
                     <div className="flex items-center">
                         <span className="flex">
                         {Array.from({ length: hotel.starRating }).map(() => (
@@ -56,11 +59,12 @@ const SearchResultsCard = ({hotel}:Props) =>{
                     </div>
                     <div className="flex flex-col items-end gap-1">
                         <span className="font-bold">£{hotel.pricePerNight} per night</span>
-                        <button
-                        className="bg-blue-600 text-white h-full p-2 font-bold text-xl max-w-fit hover:bg-blue-500 rounded-lg"
+                        <Link
+                        to={`/detail/${hotel._id}`}
+                        className="bg-blue-600 text-white h-full p-2 font-bold text-xl max-w-fit hover:bg-blue-500"
                         >
                         View More
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

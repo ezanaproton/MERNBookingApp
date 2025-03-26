@@ -13,6 +13,7 @@ import { useAppContext } from './contexts/AppContext.tsx'
 import MyHotels from './pages/MyHotels.tsx'
 import EditHotel from './pages/EditHotel.tsx'
 import Search from './pages/Search.tsx'
+import Detail from './pages/Details.tsx'
 
 function App() {
   const { isLoggedIn } = useAppContext();
@@ -20,11 +21,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout><p>Home Page</p></Layout>} />
+        <Route path="/" element={<Layout><p><Search/></p></Layout>} />
         <Route path="/search" element={<Layout><Search></Search></Layout>} />
         <Route path="*" element={<div className='text-center h-screen text-3xl align-items justify-center'>Coming Soon</div>} />
         <Route path="/register" element={<Layout><Register></Register></Layout>} />
         <Route path="/sign-in" element={<Layout><SignIn></SignIn></Layout>}></Route>
+        <Route path="/detail/:hotelId" element={<Layout><Detail /></Layout>}/>
         {isLoggedIn &&
           (<>
             <Route path="/my-hotels" element={<Layout><MyHotels></MyHotels></Layout>}></Route>

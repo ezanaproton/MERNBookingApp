@@ -63,7 +63,8 @@ router.get('/:id',
     async (req : Request, res : Response)=>{
     const id = req.params.id.toString();
     try{
-        const hotel = await Hotel.findOne({_id: id, userId: req.userId});
+        const hotel = await Hotel.findOne({_id: id});
+        console.log(hotel);
         res.json(hotel);    
     }catch(error){
         console.log(error);

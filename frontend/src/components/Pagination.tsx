@@ -11,7 +11,10 @@ const Pagination = ({page, pages, onChange}: Props) =>{
         <div className="justify-items-center">
             {pages > 1 &&
                 <div className="flex flex-row gap-1 align-bottom">
-                    {page > 1 && <button onClick={()=>onChange(page-1)} className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white "><FaArrowLeft/></button>}
+                    {page > 1 
+                        ? <button onClick={()=>onChange(page-1)} className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white "><FaArrowLeft/></button>
+                        : <span className="w-8 h-8"></span>
+                    }
                     {Array.from({length: pages}).map((i, index)=>(
                         <div
                             className={`
@@ -22,7 +25,10 @@ const Pagination = ({page, pages, onChange}: Props) =>{
                             {index+1}
                         </div>
                     ))}
-                    {page < pages && <button onClick={()=>onChange(page+1)} className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white "><FaArrowRight/></button>}
+                    {page < pages 
+                        ? <button onClick={()=>onChange(page+1)} className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white "><FaArrowRight/></button>
+                        : <span className="w-8 h-8"></span>
+                        }
                 </div>
                 }
         </div>

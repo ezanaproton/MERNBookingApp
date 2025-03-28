@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { useSearchContext } from "../contexts/SearchContext";
 import * as apiClient from "../client";
-import { useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import SearchResultsCard from "../components/SearchResultsCard";
 import Pagination from "../components/Pagination";
 import StarRatingFilter from "../components/StarRatingFilter";
@@ -13,6 +13,8 @@ import PriceFilter from "../components/PriceFilter";
 const Search = ()=>{
     const search = useSearchContext();
     const [page, setPage] = useState<number>(1);
+    const [pages, setPages] = useState<number>(1);
+    const deferredPages = useDeferredValue(pages);
     const [selectedStars, setSelectedStars] = useState<string[]>([]);
     const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
     const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
@@ -75,6 +77,11 @@ const Search = ()=>{
         setPage(1);
       }
     
+      useEffect(()=>{
+        if(hotelData){
+            setPages(hotelData.pagination.pages);
+        }
+      },[hotelData])
 
     return(
         <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
@@ -110,11 +117,11 @@ const Search = ()=>{
             </div>
 
                 {hotelData 
-                    && hotelData.pagination.pages >1 
+                    && pages >1 
                     && <div className="-mt-12">
                             <Pagination
-                                page={hotelData?.pagination.page || 1}
-                                pages={hotelData?.pagination.pages || 1}
+                                page={page}
+                                pages={deferredPages}
                                 onChange={(x)=>setPage(x)}
                             />
                         </div>
@@ -124,9 +131,9 @@ const Search = ()=>{
                     <SearchResultsCard hotel={hotel}/>
                 ))}
 
-                {hotelData && hotelData.pagination.pages >1 &&<Pagination
-                    page={hotelData?.pagination.page || 1}
-                    pages={hotelData?.pagination.pages || 1}
+                {hotelData && pages >1 &&<Pagination
+                    page={page}
+                    pages={deferredPages}
                     onChange={(x)=>setPage(x)}/>
                 }
             </div>

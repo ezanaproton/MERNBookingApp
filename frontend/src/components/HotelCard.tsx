@@ -10,9 +10,9 @@ const HotelCard = (hotel: HotelType)=>{
         className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
     >
         <h2 className="text-2xl font-bold">{hotel.name}</h2>
-        <div className="grid gap-3 grid-cols-3" >
+        <div className="flex flex-row flex-wrap gap-2" >
             {hotel.imageUrls?.map((url)=>(
-                <img src={url} key={url} className="min-w-28 min-h-full"/>
+                <img src={url} key={url} className="max-h-[33vh] max-w-[25vw] object-cover"/>
             ))}
         </div>
         <div className="whitespace-pre-line">{hotel.description}</div>

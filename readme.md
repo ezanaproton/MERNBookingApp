@@ -45,7 +45,7 @@ This project is a full-stack booking application built using the MERN stack (Mon
 1.  Clone the repository:
 
     ```sh
-    git clone [repository URL]
+    git clone https://github.com/ezanaproton/MERNBookingApp
     ```
 
 2.  Navigate to the backend directory:
